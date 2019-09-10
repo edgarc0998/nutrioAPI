@@ -4,7 +4,6 @@ import {Input} from 'semantic-ui-react'
 import {VictoryBar, VictoryChart, VictoryAxis} from 'victory'
 import FrameworkCard from './frameworkCard'
 import ChartCard from './chartCard'
-import {password} from '../../secrets'
 
 export default class Home extends React.Component {
   constructor() {
@@ -45,8 +44,8 @@ export default class Home extends React.Component {
       'https://api.github.com/repos/facebook/react',
       {
         auth: {
-          username: 'edgarc0998',
-          password: password
+          username: null,
+          password: '23e8b418b3884c316a7f84d98554f830ea8a1243'
         }
       }
     )
@@ -55,8 +54,8 @@ export default class Home extends React.Component {
       'https://api.github.com/repos/angular/angular.js',
       {
         auth: {
-          username: 'edgarc0998',
-          password: password
+          username: null,
+          password: '23e8b418b3884c316a7f84d98554f830ea8a1243'
         }
       }
     )
@@ -65,15 +64,15 @@ export default class Home extends React.Component {
       'https://api.github.com/repos/emberjs/ember.js',
       {
         auth: {
-          username: 'edgarc0998',
-          password: password
+          username: null,
+          password: '23e8b418b3884c316a7f84d98554f830ea8a1243'
         }
       }
     )
     const vue = await axios.get('https://api.github.com/repos/vuejs/vue', {
       auth: {
-        username: 'edgarc0998',
-        password: password
+        username: null,
+        password: '23e8b418b3884c316a7f84d98554f830ea8a1243'
       }
     })
     const allVotes = await axios.get('/api/vote')
