@@ -19,3 +19,17 @@ form div {
   margin: 1em;
   display: inline-block;
 }
+
+#frameworkCont {
+  display: flex;
+  flex-direction: column;
+  height: 400px;
+  width: 30%;
+  background-color: #2b4162;
+  padding: 2rem;
+  margin: 0.5rem;
+  justify-content: space-between;
+  align-content: center;
+  align-items: center;
+  border-radius: 20px;
+}
