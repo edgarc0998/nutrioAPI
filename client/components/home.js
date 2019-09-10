@@ -28,7 +28,11 @@ export default class Home extends React.Component {
   }
 
   async submitVote(framework, email) {
-    var newVote = await axios.post(`/api/vote/${framework}/${email}`)
+    try {
+      var newVote = await axios.post(`/api/vote/${framework}/${email}`)
+    } catch (err) {
+      console.error(err)
+    }
 
     if (newVote.data === 'error') {
       this.setState({
@@ -40,42 +44,60 @@ export default class Home extends React.Component {
   }
 
   async getData() {
-    const react = await axios.get(
-      'https://api.github.com/repos/facebook/react',
-      {
+    var react
+    var angular
+    var vue
+    var ember
+    var allVotes
+    try {
+      react = await axios.get('https://api.github.com/repos/facebook/react', {
         auth: {
           username: null,
           password: '23e8b418b3884c316a7f84d98554f830ea8a1243'
         }
-      }
-    )
+      })
+    } catch (err) {
+      console.error(err)
+    }
 
-    const angular = await axios.get(
-      'https://api.github.com/repos/angular/angular.js',
-      {
+    try {
+      angular = await axios.get(
+        'https://api.github.com/repos/angular/angular.js',
+        {
+          auth: {
+            username: null,
+            password: '23e8b418b3884c316a7f84d98554f830ea8a1243'
+          }
+        }
+      )
+    } catch (err) {
+      console.error(err)
+    }
+    try {
+      ember = await axios.get('https://api.github.com/repos/emberjs/ember.js', {
         auth: {
           username: null,
           password: '23e8b418b3884c316a7f84d98554f830ea8a1243'
         }
-      }
-    )
-
-    const ember = await axios.get(
-      'https://api.github.com/repos/emberjs/ember.js',
-      {
+      })
+    } catch (err) {
+      console.error(err)
+    }
+    try {
+      vue = await axios.get('https://api.github.com/repos/vuejs/vue', {
         auth: {
           username: null,
           password: '23e8b418b3884c316a7f84d98554f830ea8a1243'
         }
-      }
-    )
-    const vue = await axios.get('https://api.github.com/repos/vuejs/vue', {
-      auth: {
-        username: null,
-        password: '23e8b418b3884c316a7f84d98554f830ea8a1243'
-      }
-    })
-    const allVotes = await axios.get('/api/vote')
+      })
+    } catch (err) {
+      console.error(err)
+    }
+    try {
+      allVotes = await axios.get('/api/vote')
+    } catch (err) {
+      console.error(err)
+    }
 
     this.setState({
       react: react.data,
