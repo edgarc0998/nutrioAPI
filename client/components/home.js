@@ -3,71 +3,7 @@ import axios from 'axios'
 import {Input} from 'semantic-ui-react'
 import {VictoryBar, VictoryChart, VictoryAxis} from 'victory'
 import FrameworkCard from './frameworkCard'
-
-const ChartCard = props => {
-  var apiData = props.data
-  return (
-    <div id="frameworkCont">
-      <div>
-        <h1 style={{color: 'white'}}>{props.title}</h1>
-      </div>
-      <VictoryChart
-        domainPadding={40}
-        style={{axisLabel: {fill: 'white', fontSize: 20}}}
-      >
-        <VictoryAxis
-          style={{
-            axis: {stroke: 'white', fill: 'white'},
-            axisLabel: {fontSize: 20, padding: 30},
-            ticks: {stroke: 'white', size: 5, fill: 'white'},
-            tickLabels: {fontSize: 20, padding: 5, fill: 'white'}
-          }}
-        />
-        <VictoryAxis
-          dependentAxis
-          style={{
-            axis: {stroke: 'white', fill: 'white'},
-            axisLabel: {fontSize: 20, padding: 30},
-            ticks: {stroke: 'white', size: 5},
-            tickLabels: {fontSize: 12, padding: 5, fill: 'white'}
-          }}
-        />
-        <VictoryBar
-          data={apiData}
-          style={{
-            data: {
-              fill: data =>
-                data.x === 1
-                  ? 'crimson'
-                  : data.x === 2
-                    ? 'navy'
-                    : data.x === 3
-                      ? 'limegreen'
-                      : data.x === 4 ? 'orange' : 'white',
-              fillOpacity: 0.7,
-              strokeWidth: 3
-            },
-            labels: {
-              fill: 'white',
-              fontSize: 15
-            },
-            axisLabel: {
-              fill: 'white',
-              fontSize: 20
-            }
-          }}
-          labels={data =>
-            data.x === 1
-              ? 'React'
-              : data.x === 2
-                ? 'Angular'
-                : data.x === 3 ? 'Vue' : data.x === 4 ? 'Ember' : ''
-          }
-        />
-      </VictoryChart>
-    </div>
-  )
-}
+import ChartCard from './chartCard'
 
 export default class Home extends React.Component {
   constructor() {
@@ -86,7 +22,6 @@ export default class Home extends React.Component {
         sidVoted: false
       },
       emailVoted: false
-      // time: new Date().toLocaleTimeString()
     }
     this.submitVote = this.submitVote.bind(this)
     this.getData = this.getData.bind(this)
@@ -105,16 +40,41 @@ export default class Home extends React.Component {
   }
 
   async getData() {
-    const react = await axios.get('https://api.github.com/repos/facebook/react')
+    const react = await axios.get(
+      'https://api.github.com/repos/facebook/react',
+      {
+        auth: {
+          username: 'edgarc0998',
+          password: '98A4274798a'
+        }
+      }
+    )
 
     const angular = await axios.get(
-      'https://api.github.com/repos/angular/angular.js'
+      'https://api.github.com/repos/angular/angular.js',
+      {
+        auth: {
+          username: 'edgarc0998',
+          password: '98A4274798a'
+        }
+      }
     )
 
     const ember = await axios.get(
-      'https://api.github.com/repos/emberjs/ember.js'
+      'https://api.github.com/repos/emberjs/ember.js',
+      {
+        auth: {
+          username: 'edgarc0998',
+          password: '98A4274798a'
+        }
+      }
     )
-    const vue = await axios.get('https://api.github.com/repos/vuejs/vue')
+    const vue = await axios.get('https://api.github.com/repos/vuejs/vue', {
+      auth: {
+        username: 'edgarc0998',
+        password: '98A4274798a'
+      }
+    })
     const allVotes = await axios.get('/api/vote')
 
     this.setState({
@@ -124,21 +84,11 @@ export default class Home extends React.Component {
       ember: ember.data,
       allVotes: allVotes.data
     })
-
-    //this is for testing, API kept giving me problems with calling it consistently
-    // this.setState({
-    //   react: {open_issues: 1000, forks: 100, watchers: 300},
-    //   angular: {open_issues: 900, forks: 160, watchers: 200},
-    //   vue: {open_issues: 500, forks: 50, watchers: 150},
-    //   ember: {open_issues: 190, forks: 100, watchers: 30},
-    //   allVotes: allVotes.data
-    // })
   }
 
   componentDidMount() {
     setInterval(() => {
       this.getData()
-      // this.setState({time: new Date().toLocaleTimeString()})
     }, 1000)
   }
 
@@ -167,12 +117,12 @@ export default class Home extends React.Component {
           }}
         >
           <ChartCard
-            title="Watchers"
+            title="Stars"
             data={[
-              {x: 1, y: this.state.react.watchers},
-              {x: 2, y: this.state.angular.watchers},
-              {x: 3, y: this.state.vue.watchers},
-              {x: 4, y: this.state.ember.watchers}
+              {x: 1, y: this.state.react.stargazers_count},
+              {x: 2, y: this.state.angular.stargazers_count},
+              {x: 3, y: this.state.vue.stargazers_count},
+              {x: 4, y: this.state.ember.stargazers_count}
             ]}
           />
           <ChartCard
