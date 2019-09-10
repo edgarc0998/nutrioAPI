@@ -4,6 +4,7 @@ import {Input} from 'semantic-ui-react'
 import {VictoryBar, VictoryChart, VictoryAxis} from 'victory'
 import FrameworkCard from './frameworkCard'
 import ChartCard from './chartCard'
+import {password} from '../../secrets'
 
 export default class Home extends React.Component {
   constructor() {
@@ -45,7 +46,7 @@ export default class Home extends React.Component {
       {
         auth: {
           username: 'edgarc0998',
-          password: '98A4274798a'
+          password: password
         }
       }
     )
@@ -55,7 +56,7 @@ export default class Home extends React.Component {
       {
         auth: {
           username: 'edgarc0998',
-          password: '98A4274798a'
+          password: password
         }
       }
     )
@@ -65,14 +66,14 @@ export default class Home extends React.Component {
       {
         auth: {
           username: 'edgarc0998',
-          password: '98A4274798a'
+          password: password
         }
       }
     )
     const vue = await axios.get('https://api.github.com/repos/vuejs/vue', {
       auth: {
         username: 'edgarc0998',
-        password: '98A4274798a'
+        password: password
       }
     })
     const allVotes = await axios.get('/api/vote')
