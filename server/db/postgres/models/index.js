@@ -1,4 +1,4 @@
-const CheckIns = require('./checkIns')
+const CheckIns = require('./checkins')
 const DailyGoals = require('./dailyGoals')
 const Exercises = require('./exercises')
 const FavoriteMeals = require('./favoriteMeals')
