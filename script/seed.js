@@ -2,7 +2,6 @@
 /* eslint-disable complexity */
 /* eslint-disable max-statements */
 'use strict'
-const {green, red} = require('chalk')
 const db = require('../server/db/postgres/db')
 
 const {
@@ -1536,7 +1535,7 @@ async function seed() {
     timesEaten: 35
   })
 
-  await console.log(green(`seeded successfully`))
+  await console.log(`seeded successfully`)
 }
 
 // We've separated the `seed` function from the `runSeed` function.
@@ -1547,7 +1546,7 @@ async function runSeed() {
   try {
     await seed()
   } catch (err) {
-    console.error(red(err))
+    console.erro(err)
     process.exitCode = 1
   } finally {
     console.log('closing db connection')
