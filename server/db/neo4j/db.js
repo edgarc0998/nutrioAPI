@@ -1,4 +1,12 @@
 const neo4j = require('neo4j-driver').v1
+console.log(
+  'auth',
+  process.env.GRAPHENEDB_BOLT_URL,
+  'user: ',
+  process.env.GRAPHENEDB_BOLT_USER,
+  'pass',
+  process.env.GRAPHENEDB_BOLT_PASSWORD
+)
 const driver = neo4j.driver(
   process.env.GRAPHENEDB_BOLT_URL || 'bolt://localhost',
   neo4j.auth.basic(
