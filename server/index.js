@@ -2,6 +2,7 @@ const express = require('express')
 const app = express()
 const db = require('./db/postgres/db')
 const path = require('path')
+const PORT = process.env.PORT || 8080
 
 module.exports = app
 
@@ -45,8 +46,8 @@ const createApp = () => {
   })
 }
 
-const server = app.listen(3000, () =>
-  console.log(`Mixing it up on port ${3000}`)
+const server = app.listen(PORT, () =>
+  console.log(`Mixing it up on port ${PORT}`)
 )
 
 async function start() {
