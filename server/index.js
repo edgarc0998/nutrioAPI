@@ -3,6 +3,9 @@ const app = express()
 const db = require('./db/postgres/db')
 const path = require('path')
 const PORT = process.env.PORT || 8080
+var schedule = require('node-schedule')
+import {series} from 'async'
+const {exec} = require('child_process')
 
 module.exports = app
 
@@ -57,3 +60,8 @@ async function start() {
 }
 
 start()
+
+var j = schedule.scheduleJob('0 0 * * *', function() {
+  series([exec('npm run seed')])
+  console.log('The answer to life, the universe, and everything!')
+})
