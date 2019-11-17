@@ -56,12 +56,10 @@ const server = app.listen(PORT, () =>
 async function start() {
   await db.sync()
   createApp()
-  //await server();
+  var j = schedule.scheduleJob('0 0 * * *', function() {
+    series([exec('npm run seed')])
+    console.log('The answer to life, the universe, and everything!')
+  })
 }
 
 start()
-
-var j = schedule.scheduleJob('0 0 * * *', function() {
-  series([exec('npm run seed')])
-  console.log('The answer to life, the universe, and everything!')
-})
