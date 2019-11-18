@@ -9,6 +9,17 @@ const {exec} = require('child_process')
 
 module.exports = app
 
+var j = schedule.scheduleJob('0 0 */3 * *', function(fireDate) {
+  series([exec('npm run seed')])
+
+  console.log(
+    'This job was supposed to run at ' +
+      fireDate +
+      ', but actually ran at ' +
+      new Date()
+  )
+})
+
 app.use(express.json())
 app.use(express.urlencoded({extended: true}))
 app.use('/api', require('./api'))
@@ -56,10 +67,6 @@ const server = app.listen(PORT, () =>
 async function start() {
   await db.sync()
   createApp()
-  var j = schedule.scheduleJob('0 0 * * *', function() {
-    series([exec('npm run seed')])
-    console.log('The answer to life, the universe, and everything!')
-  })
 }
 
 start()
