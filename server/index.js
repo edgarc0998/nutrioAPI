@@ -4,30 +4,14 @@ const db = require('./db/postgres/db')
 const path = require('path')
 const PORT = process.env.PORT || 8080
 const schedule = require('node-schedule')
-const {series} = require('async')
 const {exec} = require('child_process')
-
-const npm = require('npm')
 
 module.exports = app
 
-// var j = schedule.scheduleJob('0 0 */3 * *', function(fireDate) {
-//   series([exec('npm run seed')])
-
-//   console.log(
-//     'This job was supposed to run at ' +
-//       fireDate +
-//       ', but actually ran at ' +
-//       new Date()
-//   )
-// })
-
 var rule = new schedule.RecurrenceRule()
-
-rule.hour = new schedule.Range(0, 24, 1)
+rule.hour = new schedule.Range(0, 24, 3)
 
 schedule.scheduleJob(rule, function() {
-  // series([exec('npm run seed')])
   const child = exec(
     'npm run seed',
     {maxBuffer: 1024 * 10000},
