@@ -7,17 +7,40 @@ const schedule = require('node-schedule')
 const {series} = require('async')
 const {exec} = require('child_process')
 
+const npm = require('npm')
+
 module.exports = app
 
-var j = schedule.scheduleJob('0 0 */3 * *', function(fireDate) {
-  series([exec('npm run seed')])
+// var j = schedule.scheduleJob('0 0 */3 * *', function(fireDate) {
+//   series([exec('npm run seed')])
 
-  console.log(
-    'This job was supposed to run at ' +
-      fireDate +
-      ', but actually ran at ' +
-      new Date()
+//   console.log(
+//     'This job was supposed to run at ' +
+//       fireDate +
+//       ', but actually ran at ' +
+//       new Date()
+//   )
+// })
+
+var rule = new schedule.RecurrenceRule()
+
+rule.hour = new schedule.Range(0, 24, 1)
+
+schedule.scheduleJob(rule, function() {
+  // series([exec('npm run seed')])
+  const child = exec(
+    'npm run seed',
+    {maxBuffer: 1024 * 10000},
+    (error, stdout, stderr) => {
+      if (error) {
+        throw error
+      }
+      console.log(stdout)
+    }
   )
+
+  console.log(rule)
+  console.log('SCHEDULE WORKED')
 })
 
 app.use(express.json())
