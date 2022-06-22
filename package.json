@@ -41,7 +41,7 @@
   "author": "Fullstack Academy of Code",
   "license": "MIT",
   "dependencies": {
-    "async": "^3.1.0",
+    "async": "^3.2.2",
     "axios": "^0.19.0",
     "child_process": "^1.0.2",
     "compression": "^1.7.3",
